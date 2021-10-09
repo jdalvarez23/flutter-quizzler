@@ -44,7 +44,7 @@ class _QuizPageState extends State<QuizPage> {
             padding: EdgeInsets.all(10.0),
             child: Center(
               child: Text(
-                quizBrain.questions[questionNumber].questionText,
+                quizBrain.getQuestionText(questionNumber),
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 25.0,
@@ -70,7 +70,7 @@ class _QuizPageState extends State<QuizPage> {
               onPressed: () {
                 //The user picked true.
 
-                bool correctAnswer = quizBrain.questions[questionNumber].questionAnswer;
+                bool correctAnswer = quizBrain.getQuestionAnswer(questionNumber);
 
                 if (correctAnswer) {
                   print('user got it right');
@@ -82,7 +82,7 @@ class _QuizPageState extends State<QuizPage> {
                   questionNumber++;
                 });
                 // check if the question number reaches the end of the list
-                if (questionNumber == quizBrain.questions.length) {
+                if (questionNumber == quizBrain.getQuestionLength()) {
                   questionNumber = 0;
                 }
               },
@@ -104,7 +104,7 @@ class _QuizPageState extends State<QuizPage> {
               onPressed: () {
                 //The user picked false.
 
-                bool correctAnswer = quizBrain.questions[questionNumber].questionAnswer;
+                bool correctAnswer = quizBrain.getQuestionAnswer(questionNumber);
 
                 if (!correctAnswer) {
                   print('user got it wrong');
@@ -116,7 +116,7 @@ class _QuizPageState extends State<QuizPage> {
                   questionNumber++;
                 });
                 // check if the question number reaches the end of the list
-                if (questionNumber == quizBrain.questions.length) {
+                if (questionNumber == quizBrain.getQuestionLength()) {
                   questionNumber = 0;
                 }
               },
