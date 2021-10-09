@@ -30,6 +30,16 @@ class QuizPage extends StatefulWidget {
 class _QuizPageState extends State<QuizPage> {
   List<Icon> scoreKeeper = [];
 
+  void checkAnswer(bool userPickedAnswer) {
+    bool correctAnswer = quizBrain.getQuestionAnswer(questionNumber);
+
+    if (userPickedAnswer == correctAnswer) {
+      scoreKeeper.add(Icon(Icons.check, color: Colors.green));
+    } else {
+      scoreKeeper.add(Icon(Icons.close, color: Colors.red));
+    }
+  }
+
   int questionNumber = 0;
 
   @override
@@ -69,21 +79,14 @@ class _QuizPageState extends State<QuizPage> {
               ),
               onPressed: () {
                 //The user picked true.
-
-                bool correctAnswer = quizBrain.getQuestionAnswer(questionNumber);
-
-                if (correctAnswer) {
-                  print('user got it right');
-                } else {
-                  print('user got it wrong');
-                }
-
+                checkAnswer(true);
                 setState(() {
                   questionNumber++;
                 });
                 // check if the question number reaches the end of the list
                 if (questionNumber == quizBrain.getQuestionLength()) {
                   questionNumber = 0;
+                  scoreKeeper = [];
                 }
               },
             ),
@@ -103,21 +106,14 @@ class _QuizPageState extends State<QuizPage> {
               ),
               onPressed: () {
                 //The user picked false.
-
-                bool correctAnswer = quizBrain.getQuestionAnswer(questionNumber);
-
-                if (!correctAnswer) {
-                  print('user got it wrong');
-                } else {
-                  print('user got it right');
-                }
-
+                checkAnswer(false);
                 setState(() {
                   questionNumber++;
                 });
                 // check if the question number reaches the end of the list
                 if (questionNumber == quizBrain.getQuestionLength()) {
                   questionNumber = 0;
+                  scoreKeeper = [];
                 }
               },
             ),
